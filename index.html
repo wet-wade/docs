@@ -43,7 +43,138 @@
       <h2>User Interface / User Experience</h2>
       <section id="ui-motivation">
         <h3>UI Motivation</h3>
-        <p>Here we'll talk about the motivation of the user interface</p>
+        <p>
+          This application is mainly focused on mobile devices, therefore we need a simple layout, that the user can
+          easily interact with in a tactile manner.
+        </p>
+        <p>
+          The screens hierarchy has been structured with the focus on the group entity, as that's where the user will
+          spend most of its time. The following figure illustrates the screens hierarchy.
+        </p>
+        <figure typeof="sa:image">
+          <a href="diagrams/ui-routing.jpg" target="_blank">
+            <img src="diagrams/ui-routing.jpg" alt="user interface routing" />
+          </a>
+        </figure>
+        <p>
+          In the next sections we will discuss each screen with respect to its functionality, layout and UI/UX
+          considerations.
+        </p>
+      </section>
+      <section id="splash-screen">
+        <h3>Splash Screen</h3>
+        <p>
+          Although the splash screen is not really visible, it is present, and it's purpuse it's to decide the further
+          direction that the user should take in our application.
+        </p>
+        <p>
+          It primarily tries to redirect to the user groups screen, and if that fails due to the user not being
+          authenticated, it will redirect the user to the authentication module.
+        </p>
+      </section>
+      <section id="group-join-screen">
+        <h3>Group Joining Screen</h3>
+        <p>
+          In the context of WET application, users can adhere to other groups by accessing a special joining address,
+          that needs to be shared by the creator of the group.
+        </p>
+        <p>
+          This screen has no other purpose than presenting the user with the group that he's about to join, and checking
+          if they're logged in or not, in which case an input asking for the user's name will be shown, so the user can
+          join the group as a temporary member.
+        </p>
+        <figure typeof="sa:image">
+          <a href="assets/screenshots/join-group.jpg" target="_blank">
+            <img src="assets/screenshots/join-group.jpg" alt="join group" />
+          </a>
+        </figure>
+        <p>
+          After confirming the group join, the user will be (authenticated if they're a temporary group member and)
+          redirected to the main screen of the application, which is the group list, that we will discuss later.
+        </p>
+      </section>
+      <section id="login-screen">
+        <h3>Login Screen</h3>
+        <p>
+          In the case that the user is not authenticated, and he is not accessing a group join link, the login screen is
+          the first interaction with the application
+        </p>
+        <p>
+          The purpose of this screen is clear, we need to authenticate already registered users via username and
+          password.
+        </p>
+        <figure typeof="sa:image">
+          <a href="assets/screenshots/login-screen.jpg" target="_blank">
+            <img src="assets/screenshots/login-screen.jpg" alt="login" />
+          </a>
+        </figure>
+        <p>
+          The user is presented with a minimal form, with 2 fields: <strong>username</strong> and
+          <strong>password</strong>. There is also a button to redirect to the registration screen, in case the user is
+          not already registered.
+        </p>
+        <p>
+          These fields have a validation that ensures the fields are not empty, and disables the submit button
+          otherwise.
+        </p>
+        <figure typeof="sa:image">
+          <a href="assets/screenshots/login-validation.jpg" target="_blank">
+            <img src="assets/screenshots/login-validation.jpg" alt="login" />
+          </a>
+        </figure>
+      </section>
+      <section id="register-screen">
+        <h3>Register Screen</h3>
+        <p>
+          The registration screen is very similar with the login screen, both in user experience and purpose. If the
+          user has no registered account, they can chose to create an account, via the registration form.
+        </p>
+        <figure typeof="sa:image">
+          <a href="assets/screenshots/registration-screen.jpg" target="_blank">
+            <img src="assets/screenshots/registration-screen.jpg" alt="login" />
+          </a>
+        </figure>
+        <p>
+          This screen has a link back to the login screen, in case the user got here by mistake, and they already have
+          an account.
+        </p>
+        <p>
+          Both the registration and the login screen will redirect the user to the main screen after the authentication
+          is successful.
+        </p>
+      </section>
+      <section id="main-screen">
+        <h3>Main Screen (Groups list screen)</h3>
+        <p>
+          The main screen of the application presents the user with all the groups that they are a member of. The groups
+          are presented in a mobile-friendly manner, using <strong>cards</strong>>, and large control buttons.
+        </p>
+        <figure typeof="sa:image">
+          <a href="assets/screenshots/groups-list.jpg" target="_blank">
+            <img src="assets/screenshots/groups-list.jpg" alt="login" />
+          </a>
+        </figure>
+        <p>Each group card may have two options: group settings, and group devices.</p>
+        <ul>
+          <li>
+            <strong>Group settings</strong> button will redirect the user to the group settings, which we will discuss
+            later. This option is available only for the creator of the group.
+          </li>
+          <li>
+            <strong>Group devices</strong> button will redirect the user to the devices screen, which we will also
+            discuss later. This option is available for each member of the group.
+          </li>
+        </ul>
+        <p>
+          It is worth noting that there is a button that allows the user to create a new group. This button will show a
+          modal that requires the user to input the group name, and will create a new group with that name. This option
+          is available just for the registered accounts, so temporary group members will not be able to create groups
+        </p>
+        <figure typeof="sa:image">
+          <a href="assets/screenshots/create-group.jpg" target="_blank">
+            <img src="assets/screenshots/create-group.jpg" alt="login" />
+          </a>
+        </figure>
       </section>
     </section>
   </body>
