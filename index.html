@@ -307,6 +307,17 @@
         </p>
 
         <p>
+          This is how the device is being constructed from the WoT Thing definition represented by <code>saref:Device</code> and <code>device:Device</code>.
+          The definition is added on demand to the actual device with it's corresponding properties and actions, and on our DB we store only <code>device:Device</code>
+          entity.
+          <figure typeof="sa:image">
+            <a href="diagrams/device-diagram.png" target="_blank">
+              <img src="diagrams/device-diagram.png" alt="classes" />
+            </a>
+          </figure>
+        </p>
+
+        <p>
           Permission entity:
           <figure typeof="schema:Table">
             <table>
