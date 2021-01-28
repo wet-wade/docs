@@ -64,70 +64,169 @@
         two smaller components, one being the Python Flask API.
       </p>
 
-      <h3>Diagrams</h3>
+      <section id="arch-diagrams">
+        <h3>Diagrams</h3>
+        <p>test</p>
+      </section>
 
-      <h3>Back end</h3>
-      <p>
-        At the core of our data modeling we identify 4 core entities: Users, Devices, Permissions and Groups
-      </p>
-      <p>
-        Users are represented by the people that will interract with our application, holding key information regarding 
-        identifiers: id, email, name, password and mobile phone.
-      </p>
-      <p>
-        We used Groups as a way to represent the similarity of User's access rights. Groups can consist of one or more 
-        Users and hold the permissions that will take effect upon different actions on our devices.
-      </p>
-      <p>
-        Devices are nothing but simple electonics that have the ability to connect to the local network and communicate 
-        with our application. Devices can be discovered and attached to a certain group.
-      </p>
-      <p>
-        In order to represent the permissons that take place between users and devices we modeled the Permissions entity 
-        that holds information related to basic READ, WRITE and MANAGE roles as well as the device we have created this 
-        permissions. Groups hold these permissions we created, and can be more than 1.
-      </p>
+      <section id="arch-be">
+        <h3>Back end</h3>
+        <p>
+          At the core of our data modeling we identify 4 core entities: Users, Devices, Permissions and Groups
+        </p>
+        <p>
+          Users are represented by the people that will interract with our application, holding key information regarding 
+          identifiers: id, email, name, password and mobile phone.
+        </p>
+        <p>
+          We used Groups as a way to represent the similarity of User's access rights. Groups can consist of one or more 
+          Users and hold the permissions that will take effect upon different actions on our devices.
+        </p>
+        <p>
+          Devices are nothing but simple electonics that have the ability to connect to the local network and communicate 
+          with our application. Devices can be discovered and attached to a certain group.
+        </p>
+        <p>
+          In order to represent the permissons that take place between users and devices we modeled the Permissions entity 
+          that holds information related to basic READ, WRITE and MANAGE roles as well as the device we have created this 
+          permissions. Groups hold these permissions we created, and can be more than 1.
+        </p>
+  
+        <figure typeof="sa:image">
+          <a href="diagrams/backend-arhitecture.jpg" target="_blank">
+            <img src="diagrams/backend-arhitecture.jpg" alt="backend arhitecture" />
+          </a>
+        </figure>
+  
+        <p>
+          In order to manage the described entities, we created controllers for each module: devices, authentication and groups. 
+          Using these controllers we obtained full access in creating a suitable REST API to fulfill our needs.
+        </p>
+  
+        <figure typeof="sa:image">
+          <a href="assets/screenshots/endpoints.jpg" target="_blank">
+            <img src="assets/screenshots/endpoints.jpg" alt="classes" />
+          </a>
+        </figure>
+  
+        <p>
+          Managing the devices is done in multiple ways: discovering the available devices on a network, which are saved at group 
+          level under 'was discovered', point at which we first assign an id to them.
+          We also have the possibility to dispaly the paired devices to a group, or even send commands to a certain device.
+        </p>
+        <p>
+          Group controllers took up more functionality than the other two controllers, having multiple jobs assigned: adding permissions 
+          and members to a group, creating a new group, retriving the groups associated with the current authenticated user, getting a 
+          short summary or full data about a group.
+        </p>
+        <p>
+          For the authentication component, we have implemented the login functionality (done with username and password). This will 
+          restrict unauthorized users from accesing sensitive data and prevents unwanted actions taking place. In case of login, we are 
+          making use of a token to authenticate further actions on the application, without the need of constantly entering credentials. 
+          For the last part we also implemented a mechanism for registering, during which the Users entity will be populated with information 
+          like a encrypted password and username.
+        </p>
+  
+        <figure typeof="sa:image">
+          <a href="diagrams/classes.jpg" target="_blank">
+            <img src="diagrams/classes.jpg" alt="classes" />
+          </a>
+        </figure>
+      </section>
 
-      <figure typeof="sa:image">
-        <a href="diagrams/backend-arhitecture.jpg" target="_blank">
-          <img src="diagrams/backend-arhitecture.jpg" alt="backend arhitecture" />
-        </a>
-      </figure>
+      <section id="arch-sparql">
+        <h3>SPARQL</h3>
+        <p>
+          Interaction with SPARQL was made using Fuseki WebApp, and it helped visualising the query results and how to map them against the model, 
+          and with SPARQL Wrapper in Python.
+        </p>
+        <p>
+          The following query is used during the construction of the <code>GET /groups/:group_id</code> request. The way we designed the group is 
+          that we initially create the group itself, then allow the user to add devices and/or set permissions for them. This being said, initially
+          we would not have any values that populate the <code>consistsOf</code> and <code>hasPermission</code> relations and teh query would fail.
+          Given this, without the OPTIONAL operator the query will fail on the initial state of the group.
+        </p>
+        <p>
+          <code>
+            PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; <br/>
+            PREFIX groups: &lt;http://www.semanticweb.org/ontologies/groups#&gt;<br/>
+            PREFIX users: &lt;http://www.semanticweb.org/ontologies/users#&gt;<br/>
+            PREFIX devices: &lt;http://www.semanticweb.org/ontologies/devices#&gt;<br/>
+            PREFIX permissions: &lt;http://www.semanticweb.org/ontologies/permissions#&gt;
+            <br/>SELECT * 
+            <br/>WHERE { 
+                 <br/>?group rdf:type groups:Group ;
+                 <br/>&nbsp;&nbsp;    groups:id "{group_id}" .
+                 <br/>?group groups:name ?name .
+                 <br/>?group groups:id ?id .
+                 <br/>?group groups:isOwnedBy ?owner .
+                 <br/>?owner users:id ?owner_id .
+                 <br/>?owner users:name ?owner_name .
+                 <br/>?group groups:hasMember ?member .
+                 <br/>?member users:id ?member_id .
+                 <br/>?member users:name ?member_name .
+                
+                 <br/>OPTIONAL {
+                 <br/>&nbsp;&nbsp;    ?group groups:consistsOf ?device 
+                 <br/>&nbsp;&nbsp;    ?device devices:id ?device_id .
+                 <br/>&nbsp;&nbsp;    ?device devices:name ?device_name .
+                 <br/>&nbsp;&nbsp;    ?device devices:nickname ?device_nickname .
+                 <br/>&nbsp;&nbsp;    ?device a ?device_type .
+                 <br/>}
+        
+                   <br/>OPTIONAL {
+                   <br/>&nbsp;&nbsp;         ?group groups:hasPermission ?permissions .
+                   <br/>&nbsp;&nbsp;         ?permissions permissions:deviceId ?permission_device_id .
+                   <br/>&nbsp;&nbsp;         ?permissions permissions:memberId ?permission_member_id .
+                   <br/>&nbsp;&nbsp;         ?permissions permissions:manage ?permission_can_manage .
+                   <br/>&nbsp;&nbsp;         ?permissions permissions:read ?permission_can_read .
+                   <br/>&nbsp;&nbsp;         ?permissions permissions:write ?permission_can_write .
+                   <br/>&nbsp;&nbsp;   }
+              <br/>}
+          </code>
+        </p>
 
-      <p>
-        In order to manage the described entities, we created controllers for each module: devices, authentication and groups. 
-        Using these controllers we obtained full access in creating a suitable REST API to fulfill our needs.
-      </p>
+        <p>
+          Another interesting query, or command to be more exact, is the one for updating permissions. Due to the nature of the 
+          SPARQL, there are no <code>UPDATE</code> statements per se, but combined <code>DELETE - INSERT</code> statements, this 
+          is due to the necessity of deleting the nodes and recreating them. Here we used the FILTER operator to select only the
+          permission referring to that member and device.
+        </p>
+        <p>
+          <code>
+            <br/>DELETE {{
+            <br/>&nbsp;  ?permissions permissions:memberId ?permissions_member_id .
+            <br/>&nbsp;  ?permissions permissions:deviceId ?permissions_device_id .
+            <br/>&nbsp;  ?permissions permissions:manage ?permission_can_manage .
+            <br/>&nbsp;  ?permissions permissions:read ?permission_can_read .
+            <br/>&nbsp;  ?permissions permissions:write ?permission_can_write .
+            <br/>}}
+            <br/>INSERT {{
+            <br/>&nbsp;    ?permissions permissions:memberId "{permission["memberId"]}" .
+            <br/>&nbsp;    ?permissions permissions:deviceId "{permission["deviceId"]}" .
+            <br/>&nbsp;    ?permissions permissions:manage "{int(permission["manage"])}" .
+            <br/>&nbsp;    ?permissions permissions:read "{int(permission["read"])}" .
+            <br/>&nbsp;   ?permissions permissions:write "{int(permission["write"])}" .
+            <br/>}}  
 
-      <figure typeof="sa:image">
-        <a href="assets/screenshots/endpoints.jpg" target="_blank">
-          <img src="assets/screenshots/endpoints.jpg" alt="classes" />
-        </a>
-      </figure>
+            <br/>WHERE {{
+            <br/>&nbsp;     ?group rdf:type groups:Group ;
+            <br/>&nbsp; &nbsp;      groups:id "{group_id}" .
 
-      <p>
-        Managing the devices is done in multiple ways: discovering the available devices on a network, which are saved at group 
-        level under 'was discovered', point at which we first assign an id to them.
-        We also have the possibility to dispaly the paired devices to a group, or even send commands to a certain device.
-      </p>
-      <p>
-        Group controllers took up more functionality than the other two controllers, having multiple jobs assigned: adding permissions 
-        and members to a group, creating a new group, retriving the groups associated with the current authenticated user, getting a 
-        short summary or full data about a group.
-      </p>
-      <p>
-        For the authentication component, we have implemented the login functionality (done with username and password). This will 
-        restrict unauthorized users from accesing sensitive data and prevents unwanted actions taking place. In case of login, we are 
-        making use of a token to authenticate further actions on the application, without the need of constantly entering credentials. 
-        For the last part we also implemented a mechanism for registering, during which the Users entity will be populated with information 
-        like a encrypted password and username.
-      </p>
+            <br/>&nbsp;     ?group groups:hasPermission ?permissions .
+            <br/>&nbsp;     ?permissions permissions:memberId ?permissions_member_id .
+            <br/>&nbsp;     ?permissions permissions:deviceId ?permissions_device_id .
+            <br/>&nbsp;     ?permissions permissions:manage ?permission_can_manage .
+            <br/>&nbsp;     ?permissions permissions:read ?permission_can_read .
+            <br/>&nbsp;     ?permissions permissions:write ?permission_can_write .
 
-      <figure typeof="sa:image">
-        <a href="diagrams/classes.jpg" target="_blank">
-          <img src="diagrams/classes.jpg" alt="classes" />
-        </a>
-      </figure>
+            <br/>&nbsp;     FILTER (?permissions_member_id = "{permission["memberId"]}"
+            <br/>&nbsp;&nbsp;&nbsp;           &&  ?permissions_device_id = "{permission["deviceId"]}")
+            }}
+          </code>
+        </p>
+
+      </section>
 
     </section>
 
