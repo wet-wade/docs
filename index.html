@@ -134,24 +134,61 @@
     <section id="back-end">
       <h2>Back End</h2>
       <section id="Back-end-motivation">
-          <h3>Back-End Motivation</h3>
-          <p>snth</p>
-        <section id="bem-python">
-          <h3>Python</h3>
-          <p>snth</p>
-        </section>
-        <section id="bem-Flask">
-          <h3>Flask</h3>
-          <p>snth</p>
-        </section>
-        <section id="bem-SPARQLWrapper">
-          <h3>SPARQLWrapper</h3>
-          <p>snth</p>
-        </section>
-        <section id="bem-SPARQLWrapper">
-          <h3>SPARQLWrapper</h3>
-          <p>snth</p>
-        </section>
+        <h3>Back-End Motivation</h3>
+        <p>
+          We prefered using Python due to it's increased flexibility regarding types, allowing us to focus on the relations
+          we built din the database and how to extract, parse and expose them to the client. Combining the following components, 
+          where where able to create a streamlined flow from the initial request, to the final response itself.
+        </p>
+        <p>
+          Flask Application was hosted on a Heroku instance running Python, and initially posed some issues because we were not able
+          to use any known Linked Data databases, and storing data directly into files was out of the question. After a bit of research, 
+          we found out that it is possible to host Fuseki, which is the WebApp running Jena, on the cloud. 
+        </p>
+        <p>
+          Heroku being our selected Cloud Services Provider we raised another instance running Java, and with some small changes we managed to 
+          establish a link between API and LinkedData storage. This greatly increased our ability to interact with the storage, due to the fact
+          that it was shared accross development and production environments.
+        </p>
+      </section>
+      <section id="bem-Flask">
+        <h3>Flask</h3>
+        <p>
+          It is a framework which extends the python application to a capable Web API. With the built-in modules, Flask is very potent
+          ranging from the ability of declaring controllers and structure them using Blueprint, to even a module consisting of handling.
+          With this being said, it allowed us to quickly and easily construct endpoints. 
+        </p>
+      </section>
+      <section id="bem-SPARQLWrapper">
+        <h3>SPARQLWrapper</h3>
+        <p>
+          Wrapper around SPARQL Service, which helps in creating the URI and coverting the result into a manageable format. Being a Python 
+          module it was integrated successfully in our application and was integrated as an abstractized class which called the two endopoints
+          from Jena - <code>/update</code> and <code>/query</code>.
+        </p>
+      </section>
+      <section id="bem-Jena-Fuseki">
+        <h3>Jena & Fuseki</h3>
+        <p>Apache Jena is an Open-Source Java Framework for building semantic web and Linked Data applicaitons. It suited our needs for storing 
+          Linked Data in a database, and combined with Fuseki, which is a WebApp that runs Jena, it allowed us to directly view and query the 
+          data, not limiting us to SPARQL queries that would have been difficult to create.
+        </p>
+        <p>
+          <figure typeof="sa:image">
+            <a href="diagrams/query-fuseki-1.png" target="_blank">
+              <img src="diagrams/query-fuseki-1.png" alt="user interface routing" />
+            </a>
+          </figure>
+          Example of a SPARQL Query directly from Fuseki WebApp and the output
+        </p>
+        <p>
+          <figure typeof="sa:image">
+            <a href="diagrams/query-fuseki-2.png" target="_blank">
+              <img src="diagrams/query-fuseki-2.png" alt="user interface routing" />
+            </a>
+          </figure>
+          Exemple of triples being stored, with the possibilty of modifying the data. 
+        </p>
       </section>
     </section>
 
