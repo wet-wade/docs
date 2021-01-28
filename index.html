@@ -50,12 +50,43 @@
         We wish to develop a platform that allows ease of use, friendly & responsive UI and easy management and iteraction
         smart devices. 
       </p>
-      <p>
+      <!-- <p>
         demo
-      </p>
+      </p> -->
     </section>
+
     <section id="architecture">
       <h2>Architecture</h2>
+
+      <p>
+        The architecture of our platform is split into two main components: a front-end which is represented by a client
+        built over Angular 11 with Material Design including components of Angular Material and a back-end represented by
+        two smaller components, one being the Python Flask API.
+      </p>
+
+      <h3>Diagrams</h3>
+
+      <h3>Back end</h3>
+      <p>
+        At the core of our data modeling we identify 4 core entities: Users, Devices, Permissions and Groups
+      </p>
+      <p>
+        Users are represented by the people that will interract with our application, holding key information regarding 
+        identifiers: id, email, name, password and mobile phone.
+      </p>
+      <p>
+        We used Groups as a way to represent the similarity of User's access rights. Groups can consist of one or more 
+        Users and hold the permissions that will take effect upon different actions on our devices.
+      </p>
+      <p>
+        Devices are nothing but simple electonics that have the ability to connect to the local network and communicate 
+        with our application. Devices can be discovered and attached to a certain group.
+      </p>
+      <p>
+        In order to represent the permissons that take place between users and devices we modeled the Permissions entity 
+        that holds information related to basic READ, WRITE and MANAGE roles as well as the device we have created this 
+        permissions. Groups hold these permissions we created, and can be more than 1.
+      </p>
 
       <figure typeof="sa:image">
         <a href="diagrams/backend-arhitecture.jpg" target="_blank">
@@ -64,23 +95,15 @@
       </figure>
 
       <p>
-        The architecture of our platform is split into two main components: a front-end which is represented by a client
-        built over Angular 11 with Material Design including components of Angular Material and a back-end represented by
-        two smaller components, one being the Python Flask API 
+        In order to manage the described entities, we created controllers for each module: devices, authentication and groups. 
+        Using these controllers we obtained full access in creating a suitable REST API to fulfill our needs.
       </p>
-
-      <h3>Diagrams</h3>
 
       <figure typeof="sa:image">
         <a href="assets/screenshots/endpoints.jpg" target="_blank">
           <img src="assets/screenshots/endpoints.jpg" alt="classes" />
         </a>
       </figure>
-
-      <p>
-        In order to manage the described entities, we created controllers for each module: devices, authentication and groups. 
-        Using these controllers we obtained full access in creating a suitable REST API to fulfill our needs.
-      </p>
 
       <p>
         Managing the devices is done in multiple ways: discovering the available devices on a network, which are saved at group 
@@ -106,30 +129,31 @@
         </a>
       </figure>
 
-      <h3>Back end</h3>
-      <p>
-        At the core of our data modeling we identify 4 core entities: Users, Devices, Permissions and Groups
-      </p>
-      <p>
-        Users are represented by the people that will interract with our application, holding key information regarding 
-        identifiers: id, email, name, password and mobile phone.
-      </p>
-      <p>
-        We used Groups as a way to represent the similarity of User's access rights. Groups can consist of one or more 
-        Users and hold the permissions that will take effect upon different actions on our devices.
-      </p>
-      <p>
-        Devices are nothing but simple electonics that have the ability to connect to the local network and communicate 
-        with our application. Devices can be discovered and attached to a certain group.
-      </p>
-      <p>
-        In order to represent the permissons that take place between users and devices we modeled the Permissions entity 
-        that holds information related to basic READ, WRITE and MANAGE roles as well as the device we have created this 
-        permissions. Groups hold these permissions we created, and can be more than 1.
-      </p>
+    </section>
 
-      <p>Cum e in general</p>
-      <p>cum ne-am inteles cu sparql</p>
+    <section id="back-end">
+      <h2>Back End</h2>
+      <section id="Back-end-motivation">
+          <h3>Back-End Motivation</h3>
+          <p>snth</p>
+        <section id="bem-python">
+          <h3>Python</h3>
+          <p>snth</p>
+        </section>
+        <section id="bem-Flask">
+          <h3>Flask</h3>
+          <p>snth</p>
+        </section>
+        <section id="bem-SPARQLWrapper">
+          <h3>SPARQLWrapper</h3>
+          <p>snth</p>
+        </section>
+        <section id="bem-SPARQLWrapper">
+          <h3>SPARQLWrapper</h3>
+          <p>snth</p>
+        </section>
+      </section>
+    </section>
 
     </section>
     <section id="user-interface">
