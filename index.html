@@ -69,9 +69,35 @@
 
       <h3>Diagrams</h3>
       <p>Ce mai avem noi</p>
-      <p>cum am modelat relatiile</p>
+
+      <figure typeof="sa:image">
+        <a href="diagrams/backend-arhitecture.jpg" target="_blank">
+          <img src="diagrams/backend-arhitecture.jpg" alt="backend arhitecture" />
+        </a>
+      </figure>
 
       <h3>Back end</h3>
+      <p>
+        At the core of our data modeling we identify 4 core entities: Users, Devices, Permissions and Groups
+      </p>
+      <p>
+        Users are represented by the people that will interract with our application, holding key information regarding 
+        identifiers: id, email, name, password and mobile phone.
+      </p>
+      <p>
+        We used Groups as a way to represent the similarity of User's access rights. Groups can consist of one or more 
+        Users and hold the permissions that will take effect upon different actions on our devices.
+      </p>
+      <p>
+        Devices are nothing but simple electonics that have the ability to connect to the local network and communicate 
+        with our application. Devices can be discovered and attached to a certain group.
+      </p>
+      <p>
+        In order to represent the permissons that take place between users and devices we modeled the Permissions entity 
+        that holds information related to basic READ, WRITE and MANAGE roles as well as the device we have created this 
+        permissions. Groups hold these permissions we created, and can be more than 1.
+      </p>
+      
       <p>Cum e in general</p>
       <p>cum ne-am inteles cu sparql</p>
 
