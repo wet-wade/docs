@@ -140,6 +140,232 @@
         </figure>
       </section>
 
+      <section id="arch-entity-mapping">
+        <h3>Knowledge Model</h3>
+        <p>
+          The following figure represents our knowledge model:
+        </p>
+        <figure typeof="sa:image">
+          <a href="diagrams/Ontology_mapping.png" target="_blank">
+            <img src="diagrams/Ontology_mapping.png" alt="classes" />
+          </a>
+        </figure>
+        <p>
+          User entity:
+          <figure typeof="schema:Table">
+            <table>
+              <thead>
+              <tr>
+                <th>
+                  Property
+                </th>
+                <th>
+                  Type / Range
+                </th>
+                <th>
+                  Description
+                </th>
+              </tr>
+              </thead>
+      
+              <tr>
+                <td>rdf:type</td>
+                <td>User</td>
+                <td>User type definition</td>
+              </tr>
+              <tr>
+                <td>id</td>
+                <td>UUID</td>
+                <td>User's name</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>string</td>
+                <td>The name of the user</td>
+              </tr>
+              <tr>
+                <td>username</td>
+                <td>string</td>
+                <td>User's credential need to interact with the application</td>
+              </tr>
+              <tr>
+                <td>password</td>
+                <td>string</td>
+                <td>Password which has been hashed on user account creation</td>
+              </tr>
+              <tr>
+                <td>phone</td>
+                <td>string</td>
+                <td>User's phone number</td>
+              </tr>
+            </table>
+          </figure>
+        </p>
+
+        <p>
+          Group entity:
+          <figure typeof="schema:Table">
+            <table>
+              <thead>
+              <tr>
+                <th>
+                  Property
+                </th>
+                <th>
+                  Type / Range
+                </th>
+                <th>
+                  Description
+                </th>
+              </tr>
+              </thead>
+      
+              <tr>
+                <td>rdf:type</td>
+                <td>Group</td>
+                <td>Group definition</td>
+              </tr>
+              <tr>
+                <td>id</td>
+                <td>UUID</td>
+                <td>Unique identifier for group</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>string</td>
+                <td>Group's name</td>
+              </tr>
+              <tr>
+                <td>isOwnedBy</td>
+                <td>User</td>
+                <td>User entity that owns the group</td>
+              </tr>
+              <tr>
+                <td>hasMember</td>
+                <td>List&lt;User&gt;</td>
+                <td>User entities that are part of the group. Owner is part of this too.</td>
+              </tr>
+              <tr>
+                <td>hasDiscovered</td>
+                <td>List&lt;Device&gt;</td>
+                <td>Device entities that were found during discovery and are being linked with this group due to an increased chance of adding them in the future</td>
+              </tr>
+              <tr>
+                <td>consistsOf</td>
+                <td>List&lt;Device&gt;</td>
+                <td>Device entities actually linked with the group, and the users in that group will be able to see them, and interact with them</td>
+              </tr>
+              <tr>
+                <td>hasPermission</td>
+                <td>List&lt;Permission&gt;</td>
+                <td>Permission entities that store the permssion for a given member and device</td>
+              </tr>
+            </table>
+          </figure>
+        </p>
+
+        <p>
+          Device entity:
+          <figure typeof="schema:Table">
+            <table>
+              <thead>
+              <tr>
+                <th>
+                  Property
+                </th>
+                <th>
+                  Type / Range
+                </th>
+                <th>
+                  Description
+                </th>
+              </tr>
+              </thead>
+      
+              <tr>
+                <td>rdf:type</td>
+                <td>Device</td>
+                <td>Device definition</td>
+              </tr>
+              <tr>
+                <td>id</td>
+                <td>UUID</td>
+                <td>Unique identifier for device</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>string</td>
+                <td>Producer name for this device</td>
+              </tr>
+              <tr>
+                <td>nickname</td>
+                <td>string</td>
+                <td>Nickname given by the user</td>
+              </tr>
+            </table>
+          </figure>
+        </p>
+
+        <p>
+          Permission entity:
+          <figure typeof="schema:Table">
+            <table>
+              <thead>
+              <tr>
+                <th>
+                  Property
+                </th>
+                <th>
+                  Type / Range
+                </th>
+                <th>
+                  Description
+                </th>
+              </tr>
+              </thead>
+      
+              <tr>
+                <td>rdf:type</td>
+                <td>Permission</td>
+                <td>Permission definition</td>
+              </tr>
+              <tr>
+                <td>id</td>
+                <td>UUID</td>
+                <td>Unique identifier for permission</td>
+              </tr>
+              <tr>
+                <td>memberId</td>
+                <td>string</td>
+                <td>This is represented by the Group's member id which this permission targets</td>
+              </tr>
+              <tr>
+                <td>groupId</td>
+                <td>string</td>
+                <td>This is represented by the Group's id which this permission targets</td>
+              </tr>
+              <tr>
+                <td>read</td>
+                <td>boolean</td>
+                <td>Permission to Read device properties</td>
+              </tr>
+              <tr>
+                <td>write</td>
+                <td>boolean</td>
+                <td>Permission to Write (interact) with device actions</td>
+              </tr>
+              <tr>
+                <td>manage</td>
+                <td>boolean</td>
+                <td>Permission to Manage (Super User)</td>
+              </tr>
+            </table>
+          </figure>
+        </p>
+
+        
+      </section>
+
       <section id="arch-sparql">
         <h3>SPARQL</h3>
         <p>
