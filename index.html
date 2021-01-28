@@ -57,22 +57,52 @@
     <section id="architecture">
       <h2>Architecture</h2>
 
+      <figure typeof="sa:image">
+        <a href="diagrams/backend-arhitecture.jpg" target="_blank">
+          <img src="diagrams/backend-arhitecture.jpg" alt="backend arhitecture" />
+        </a>
+      </figure>
+
       <p>
         The architecture of our platform is split into two main components: a front-end which is represented by a client
         built over Angular 11 with Material Design including components of Angular Material and a back-end represented by
         two smaller components, one being the Python Flask API 
       </p>
 
-      <p>
-        Diagrama proiectului in sine
-      </p>
-
       <h3>Diagrams</h3>
-      <p>Ce mai avem noi</p>
 
       <figure typeof="sa:image">
-        <a href="diagrams/backend-arhitecture.jpg" target="_blank">
-          <img src="diagrams/backend-arhitecture.jpg" alt="backend arhitecture" />
+        <a href="assets/screenshots/endpoints.jpg" target="_blank">
+          <img src="assets/screenshots/endpoints.jpg" alt="classes" />
+        </a>
+      </figure>
+
+      <p>
+        In order to manage the described entities, we created controllers for each module: devices, authentication and groups. 
+        Using these controllers we obtained full access in creating a suitable REST API to fulfill our needs.
+      </p>
+
+      <p>
+        Managing the devices is done in multiple ways: discovering the available devices on a network, which are saved at group 
+        level under 'was discovered', point at which we first assign an id to them.
+        We also have the possibility to dispaly the paired devices to a group, or even send commands to a certain device.
+      </p>
+      <p>
+        Group controllers took up more functionality than the other two controllers, having multiple jobs assigned: adding permissions 
+        and members to a group, creating a new group, retriving the groups associated with the current authenticated user, getting a 
+        short summary or full data about a group.
+      </p>
+      <p>
+        For the authentication component, we have implemented the login functionality (done with username and password). This will 
+        restrict unauthorized users from accesing sensitive data and prevents unwanted actions taking place. In case of login, we are 
+        making use of a token to authenticate further actions on the application, without the need of constantly entering credentials. 
+        For the last part we also implemented a mechanism for registering, during which the Users entity will be populated with information 
+        like a encrypted password and username.
+      </p>
+
+      <figure typeof="sa:image">
+        <a href="diagrams/classes.jpg" target="_blank">
+          <img src="diagrams/classes.jpg" alt="classes" />
         </a>
       </figure>
 
@@ -97,7 +127,7 @@
         that holds information related to basic READ, WRITE and MANAGE roles as well as the device we have created this 
         permissions. Groups hold these permissions we created, and can be more than 1.
       </p>
-      
+
       <p>Cum e in general</p>
       <p>cum ne-am inteles cu sparql</p>
 
